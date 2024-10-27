@@ -1,0 +1,115 @@
+Маршрутизатор:
+
+no ip domain-lookup
+hostname ISP1
+enable secret net
+service password-encryption 
+line con 0
+password net
+login
+exit
+line vty 0 15
+password net
+login
+exit
+banner motd "You shell not PASS!!!"
+line con 0
+logging synchronous 
+exit
+
+Коммутатор:
+
+hostname S1
+enable password net
+service password-encryption
+line console 0
+password net
+login
+exit
+line vty 0 4
+password net
+login
+exit
+banner motd "You shell not PASS!!!"
+exit
+
+CLS1(config)#int g1/0/1
+CLS1(config-if)#chan
+CLS1(config-if)#channel
+CLS1(config-if)#channel-protocol lacp
+CLS1(config-if)#channel-group 1 mode active
+LS1(config-if)#exit
+CLS1(config)#int port
+CLS1(config)#int port-channel 1
+LS1(config-if)#exit
+CLS1(config)#int port
+CLS1(config)#int port-channel 1
+
+Маршрутизатор(безопасное удаленное управление) в conf t:
+security passwords min-length 10
+enable secret edu1234567 "you pass"
+service password-encryption
+line console 0
+password educonpass
+exec-timeout 5 0
+login
+logging synchronous
+exit
+line vty 0 4
+password eduvtypass
+exec-timeout 5 0
+transport input telnet
+login
+banner motd $Unauthorized access strictly prohibited!$
+exit
+
+Создайте новую учетную запись пользователя с паролем.
+R1(config)# username user01 secret user01pass
+Настройте линию консоли таким образом, чтобы использовать учетные записи, определенные локально.
+R1(config)# line console 0
+R1(config-line)# login local
+R1(config-line)# end
+R1# exit
+Настройте линии vty таким образом, чтобы использовать учетные записи, определенные локально.
+R1(config)# line vty 0 4
+R1(config-line)# login local
+
+R1(config)# ip domain-name edusecurity.com
+R1(config)# username admin privilege 15 secret edu1234567
+R1(config)# line vty 0 4
+R1(config-line)# privilege level 15
+R1(config-line)# login local
+R1(config-line)# transport input ssh
+R1(config-line)# exit
+R1(config)# crypto key zeroize rsa
+Задайте количество битов модуля для RSA-ключей, равное 1024 Значение по умолчанию – 512, диапазон
+допустимых значений – от 360 до 2048
+R1(config)# crypto key generate rsa general-keys modulus 1024
+Настройте время ожидания SSH и параметры аутентификации.
+Значения времени ожидания и параметров аутентификации SSH по умолчанию можно изменить на более
+ограничительные с помощью следующих команд.
+R1(config)# ip ssh time-out 90
+R1(config)# ip ssh authentication-retries 2
+
+Маршрутизатор(Настройка административных ролей):
+R1(config)#aaa new-model
+
+
+
+# switchport mode access
+Switch(config-if)# switchport port-security
+Switch(config-if)# switchport port-security maximum 1
+Switch(config-if)# switchport port-security violation restrict
+Switch(config-if)# switchport port-security mac-address sticky
+Switch(config-if)# spanning-tree portfast
+Switch(config-if)# spanning-tree bpduguard enable
+
+
+R3(config)# access-list 120 permit udp any any eq domain   // Разрешаем доступ к DNS
+R3(config)# access-list 120 permit udp any any eq ntp      // Разрешаем доступ к NTP
+R3(config)# access-list 120 deny tcp host PC-B any eq www  // Запрещаем доступ PC-B к HTTP
+R3(config)# access-list 120 deny tcp host PC-C any eq www  // Запрещаем доступ PC-C к HTTP
+R3(config)# access-list 120 permit ip any any
+
+R3(config)# interface GigabitEthernet0/0
+R3(config-if)# ip access-group 120 in

@@ -1,0 +1,12 @@
+https://wiki.merionet.ru/articles/nastrojka-cisco-port-security/ - Port-Security
+https://habr.com/ru/articles/121806/ - ACL
+https://unlix.ru/что-делает-команда-passive-interface-в-cisco/ - Passive Interface(OSPF, EIGRP)
+https://wiki.merionet.ru/articles/cisco-nastrojka-staticheskix-marshrutov/ - Static Routes
+https://linkmeup.gitbook.io/sdsm/8.-bgp-i-ip-sla/2.-bgp/2.-nastroika-bgp-i-praktika/0.-nastroika-bgp - LinkMeUP(BGP)
+http://routeworld.ru/set-i-internet/web_practice/167-nastroyka-oborudovaniya-cisco-protokol-stp.html - STP
+https://wiki.merionet.ru/articles/nastrojka-etherchannel-na-cisco/ - EtherChanel
+https://linkas.ru/articles/vlan-v-cisco/ - VLAN
+https://habr.com/ru/articles/565312/ - VLAN
+https://wiki.merionet.ru/articles/5-lajfxakov-v-konsoli-cisco/ - LifeHacks
+https://wiki.merionet.ru/articles/bazovaya-nastrojka-kommutatora-cisco/ - Default Switch Part 1
+https://studio-sr.ru/kak-otklyucit-poisk-dns-v-cisco-packet-tracer/ - No IP DNS Lookup
